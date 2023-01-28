@@ -57,9 +57,6 @@ troubleshooting:
 * if ripgrep is not installed:
     a. `sudo apt-get install ripgrep`
 
-* if deoplete plugin complains when running neovim:
-    a. run `:UpdateRemotePlugins` in neovim
-
 * in neovim, run `:checkhealth` to check for any other issues
 
 optional:

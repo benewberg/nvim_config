@@ -3,8 +3,7 @@ vim.g.plug_home = vim.fn.stdpath('config') .. '/plugged'
 
 vim.call('plug#begin')
 Plug('nvim-treesitter/nvim-treesitter', {branch = 'v0.9.0'})
-Plug 'shougo/deoplete-lsp'
-Plug('shougo/deoplete.nvim', {['do'] = vim.fn['remote#host#UpdateRemotePlugins']})
+Plug('echasnovski/mini.completion', {branch = 'stable'})
 Plug 'neovim/nvim-lspconfig'
 Plug 'ibhagwan/fzf-lua'
 Plug 'Shatur/neovim-ayu'
