@@ -55,3 +55,9 @@ function toggle_diagnostics()
     local current_setting = vim.diagnostic.config().virtual_text
     vim.diagnostic.config({virtual_text = not current_setting, signs = not current_setting, underline = not current_setting})
 end
+
+function ruff_fix()
+    local fterm = require'FTerm'
+    local cmd = vim.env.HOME .. "/.virtualenvs/nvim_exp/bin/ruff --ignore=E501 --extend-select=W291,W293 --fix-only --exit-zero " .. vim.api.nvim_buf_get_name(0)
+    fterm.scratch({cmd = cmd, hl = 'Normal,FloatBorder:FzfLuaBorder', on_exit = function() vim.fn.execute("checktime") end})  -- "checktime" will reload the buffer
+end
