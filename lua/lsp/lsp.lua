@@ -1,16 +1,30 @@
 local lsp = require 'lspconfig'
-lsp.pylsp.setup {
-    root_dir = lsp.util.root_pattern('.git', vim.fn.getcwd()),  -- start LSP server at project root or cwd
-    cmd = {vim.env.HOME .. '/.virtualenvs/nvim/bin/pylsp'},
+lsp.pyright.setup {
+    on_attach = function(client, bufnr)
+        client.server_capabilities.codeActionProvider = false
+        client.server_capabilities.executeCommandProvider = false
+        on_attach(client, bufnr)
+    end,
+    cmd = {vim.env.HOME .. '/.virtualenvs/nvim_exp/bin/pyright-langserver', '--stdio'},
     settings = {
-        pylsp = {
-            plugins = {
-                ruff = {
-                    enabled = true,
-                    executable = vim.env.HOME .. '/.virtualenvs/nvim/bin/ruff',
-                    ignore = {"E501"},  -- ignore line length error
-                    extendSelect = {"W291", "W293"},  -- whitespace warnings
-                },
+        pyright = {
+            disableOrganizeImports = true,
+        },
+    },
+    handlers = {
+        ["textDocument/publishDiagnostics"] = function() end,
+    },
+}
+lsp.ruff_lsp.setup {
+    on_attach = function(client, bufnr)
+        client.server_capabilities.hoverProvider = false
+        on_attach(client, bufnr)
+    end,
+    cmd = {vim.env.HOME .. '/.virtualenvs/nvim_exp/bin/ruff-lsp'},
+    init_options = {
+        settings = {
+            args = {
+                "--ignore=E501 --extend-select=W291,W293",
             },
         },
     },

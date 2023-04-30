@@ -1,4 +1,4 @@
-vim.g.python3_host_prog = vim.env.HOME .. "/.virtualenvs/nvim/bin/python3"
+vim.g.python3_host_prog = vim.env.HOME .. "/.virtualenvs/nvim_exp/bin/python3"
 
 -- load modules ------------------------------------------------------------------------------------
 require "plug"

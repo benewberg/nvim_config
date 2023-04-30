@@ -6,13 +6,13 @@ installing and running neovim 0.9.0 from absolute scratch (--verbose)
     c. `chmod u+x nvim.appimage`
 2. install a virtual environment (if it already exists, delete it and start fresh):
     a. `mkdir ~/.virtualenvs && cd ~/.virtualenvs`
-    b. `python3 -m venv nvim`
+    b. `python3 -m venv nvim_exp`
 3. install the necessary python packages in the virtual environment for nvim and python lsp purposes:
-    a. `cd ~/.virtualenvs/nvim`
+    a. `cd ~/.virtualenvs/nvim_exp`
     b. `source bin/activate`
     c. `./pip install pynvim`  # https://github.com/neovim/pynvim
-    d. `./pip install python-lsp-server`  # https://github.com/python-lsp/python-lsp-server
-    e. `./pip install python-lsp-ruff`  # https://github.com/python-lsp/python-lsp-ruff
+    d. `./pip install pyright`  # https://github.com/microsoft/pyright
+    e. `./pip install ruff-lsp`  # https://github.com/charliemarsh/ruff-lsp
     f. `deactivate`
 4. download vim-plug plugin manager:
     a. `sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
