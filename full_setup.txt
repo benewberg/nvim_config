@@ -12,7 +12,7 @@ installing and running neovim 0.9.0 from absolute scratch (--verbose)
     b. `source bin/activate`
     c. `./pip install pynvim`  # https://github.com/neovim/pynvim
     d. `./pip install pyright`  # https://github.com/microsoft/pyright
-    e. `./pip install ruff-lsp`  # https://github.com/charliemarsh/ruff-lsp
+    e. `./pip install ruff`  # https://github.com/charliemarsh/ruff
     f. `deactivate`
 4. download vim-plug plugin manager:
     a. `sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
