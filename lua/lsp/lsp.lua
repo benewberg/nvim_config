@@ -10,6 +10,14 @@ lsp.pyright.setup {
         pyright = {
             disableOrganizeImports = true,
         },
+        python = {
+            analysis = {
+                autoImportCompletions = false,
+                autoSearchPaths = true,
+                diagnosticMode = "openFilesOnly",
+                useLibraryCodeForTypes = true,
+            }
+        },
     },
     handlers = {
         ["textDocument/publishDiagnostics"] = function() end,
