@@ -33,6 +33,9 @@ function fzf_ruff_diagnostics(opts)
     local fzf_lua = require'fzf-lua'
     opts = fzf_lua.defaults.diagnostics
     opts.actions = fzf_lua.defaults.actions.files
+    opts.fn_transform = function(x)
+        return fzf_lua.utils.ansi_codes.magenta(x)
+    end
     fzf_lua.fzf_exec(vim.env.HOME .. "/.virtualenvs/nvim_exp/bin/python -m ruff --ignore=E501 --extend-select=W291,W293 " .. vim.fn.expand('%'), opts)
 end
 

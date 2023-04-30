@@ -1,10 +1,10 @@
 local lsp = require 'lspconfig'
+local on_attach = function(client, bufnr)
+    client.server_capabilities.codeActionProvider = false
+    client.server_capabilities.executeCommandProvider = false
+end
 lsp.pyright.setup {
-    on_attach = function(client, bufnr)
-        client.server_capabilities.codeActionProvider = false
-        client.server_capabilities.executeCommandProvider = false
-        on_attach(client, bufnr)
-    end,
+    on_attach = on_attach,
     cmd = {vim.env.HOME .. '/.virtualenvs/nvim_exp/bin/pyright-langserver', '--stdio'},
     settings = {
         pyright = {
