@@ -3,7 +3,7 @@ local on_attach = function(client, bufnr)
     client.server_capabilities.codeActionProvider = false
     client.server_capabilities.executeCommandProvider = false
 end
-lsp.pyright.setup {
+lsp.pyright.setup(require('coq').lsp_ensure_capabilities({
     on_attach = on_attach,
     cmd = {vim.env.HOME .. '/.virtualenvs/nvim_exp/bin/pyright-langserver', '--stdio'},
     settings = {
@@ -22,7 +22,7 @@ lsp.pyright.setup {
     handlers = {
         ["textDocument/publishDiagnostics"] = function() end,
     },
-}
+}))
 vim.diagnostic.config({
     virtual_text = false,
     signs = false,
