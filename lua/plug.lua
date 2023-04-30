@@ -17,4 +17,5 @@ Plug 'numToStr/FTerm.nvim'
 Plug 'folke/which-key.nvim'
 Plug 'windwp/nvim-autopairs'
 Plug 'echasnovski/mini.map'
+Plug 'mfussenegger/nvim-lint'
 vim.call('plug#end')    -- automatically calls `filetype plugin indent on` and `syntax enable`
