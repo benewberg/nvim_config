@@ -10,8 +10,8 @@ vim.fn['ddc#custom#patch_global']('sources', {
 -- source options
 vim.fn['ddc#custom#patch_global']('sourceOptions', {
     _ = {
-        matchers = {'matcher_head'},
-        sorters = {'sorter_rank'},
+        matchers = {'matcher_head', 'matcher_fuzzy'},
+        sorters = {'sorter_rank', 'sorter_fuzzy'},
         converters = {'converter_fuzzy'},
         minAutoCompleteLength = 1,
         timeout = 500,
@@ -20,16 +20,18 @@ vim.fn['ddc#custom#patch_global']('sourceOptions', {
     ['nvim-lsp'] = {
         mark = '[lsp]',
         forceCompletionPattern = [[\s/\s*|\.|:\w*|->\w*]],
+        isVolatile = true,
+        -- maxItems = 4,
     },
     rg = {
         mark = '[rg]',
         minAutoCompleteLength = 4,
     },
     treesitter = {
-        mark = '[TS]',
+        mark = '[treesitter]',
     },
     around = {
-        mark = '[A]',
+        mark = '[around]',
     },
 })
 
@@ -76,11 +78,11 @@ vim.fn['ddc#custom#patch_filetype']('python', {
         'nvim-lsp',
         'treesitter',
         'around',
-        'rg',
     },
 })
 
 -- mappings
+-- vim.api.nvim_set_keymap('i', '<C-Space>', '<cmd>call ddc#map#manual_complete()<CR>', {noremap = true, silent = true})
 vim.api.nvim_set_keymap('i', '<S-Tab>', 'pumvisible() ? "\\<C-p>" : "\\<Tab>"', {expr = true, noremap = true})
 vim.api.nvim_set_keymap('i', '<Tab>', 'pumvisible() ? "\\<C-n>" : "\\<Tab>"', {expr = true, noremap = true})
 -- enable
