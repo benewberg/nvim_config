@@ -3,8 +3,20 @@ vim.g.plug_home = vim.fn.stdpath('config') .. '/plugged'
 
 vim.call('plug#begin')
 Plug('nvim-treesitter/nvim-treesitter', {branch = 'v0.9.0'})
-Plug 'shougo/deoplete-lsp'
-Plug('shougo/deoplete.nvim', {['do'] = vim.fn['remote#host#UpdateRemotePlugins']})
+
+-- ddc
+Plug 'Shougo/ddc.vim'
+Plug 'vim-denops/denops.vim'
+--   ui
+Plug 'Shougo/ddc-ui-native'
+--   sources
+Plug 'Shougo/ddc-source-around'
+Plug 'Shougo/ddc-source-nvim-lsp'
+--   filters
+Plug 'Shougo/ddc-matcher_head'
+Plug 'Shougo/ddc-sorter_rank'
+Plug 'tani/ddc-fuzzy'
+
 Plug 'neovim/nvim-lspconfig'
 Plug 'ibhagwan/fzf-lua'
 Plug 'Shatur/neovim-ayu'
