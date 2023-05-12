@@ -14,3 +14,15 @@ vim.api.nvim_create_autocmd("CursorMoved", {
         vim.cmd("IndentBlanklineRefresh")
     end,
 })
+vim.api.nvim_create_autocmd("BufEnter", {
+    pattern = "*.py",
+    group = group,
+    callback = function()
+        local timeout = 500
+        local num_lines = vim.api.nvim_buf_line_count(0)
+        if num_lines > 500 then  -- arbitrary number chosen
+            timeout = 5000
+        end
+        vim.fn['ddc#custom#patch_global']('sourceOptions', { _ = {timeout = timeout}})
+    end,
+})
