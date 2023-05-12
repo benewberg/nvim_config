@@ -10,8 +10,8 @@ vim.fn['ddc#custom#patch_global']('sources', {
 -- source options
 vim.fn['ddc#custom#patch_global']('sourceOptions', {
     _ = {
-        matchers = {'matcher_fuzzy'},
-        sorters = {'sorter_fuzzy'},
+        matchers = {'matcher_head'},
+        sorters = {'sorter_rank'},
         converters = {'converter_fuzzy'},
         minAutoCompleteLength = 1,
         timeout = 500,
