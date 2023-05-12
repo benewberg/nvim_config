@@ -13,6 +13,7 @@ Plug 'Shougo/ddc-ui-native'
 Plug 'Shougo/ddc-source-around'
 Plug 'Shougo/ddc-source-nvim-lsp'
 Plug 'Shougo/ddc-source-rg'
+Plug 'delphinus/ddc-treesitter'
 --   filters
 Plug 'Shougo/ddc-matcher_head'
 Plug 'Shougo/ddc-sorter_rank'
