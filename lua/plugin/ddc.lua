@@ -4,6 +4,7 @@ vim.fn['ddc#custom#patch_global']('ui', 'native')
 -- sources
 vim.fn['ddc#custom#patch_global']('sources', {
     'nvim-lsp',
+    'rg',
     'around',
 })
 
@@ -19,8 +20,11 @@ vim.fn['ddc#custom#patch_global']('sourceOptions', {
     },
     ['nvim-lsp'] = {
         mark = 'lsp',
-        -- forceCompletionPattern = [[\.\w*|:\w*|->\w*]],
-        forceCompletionPattern = [[\.|:\w*|->\w*]],
+        forceCompletionPattern = [[\S/\S*|\.|:\w*|->\w*]],
+    },
+    rg = {
+        mark = 'rg',
+        minAutoCompleteLength = 4,
     },
     around = {
         mark = 'A',
@@ -34,5 +38,8 @@ vim.fn['ddc#custom#patch_global']('sourceParams', {
     },
 })
 
+-- mappings
+vim.api.nvim_set_keymap('i', '<S-Tab>', 'pumvisible() ? "\\<C-p>" : "\\<Tab>"', {expr = true, noremap = true})
+vim.api.nvim_set_keymap('i', '<Tab>', 'pumvisible() ? "\\<C-n>" : "\\<Tab>"', {expr = true, noremap = true})
 -- enable
 vim.fn["ddc#enable"]()
