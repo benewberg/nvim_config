@@ -15,4 +15,3 @@ vim.opt.cursorlineopt = "number"
 vim.opt.number = true
 vim.opt.wrap = false
 vim.opt.tags = vim.env.HOME .. '/.config/nvim/tags'
-vim.opt.scrolloff = 10
