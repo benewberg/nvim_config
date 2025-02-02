@@ -15,7 +15,6 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
-    "neovim/nvim-lspconfig",
     {
         "nvim-treesitter/nvim-treesitter",
         build = ":TSUpdate",
@@ -24,18 +23,43 @@ require("lazy").setup({
         end,
     },
     {
-        "hrsh7th/nvim-cmp",
-        dependencies = {
-            "hrsh7th/cmp-nvim-lsp",
-            "hrsh7th/cmp-buffer",
-            "hrsh7th/cmp-path",
-            "hrsh7th/cmp-cmdline",
-            "lukas-reineke/cmp-rg",
+        "saghen/blink.cmp",
+        lazy = false,
+        version = "v0.*",
+
+        ---@module 'blink.cmp'
+        ---@type blink.cmp.Config
+        opts = {
+            keymap = {
+                preset = "default",
+                ["<Tab>"] = {"select_next", "fallback"},
+                ["<S-Tab>"] = {"select_prev", "fallback"},
+                ["<CR>"] = {"select_and_accept", "fallback"},
+            },
+            highlight = {
+                use_nvim_cmp_as_default = true,
+            },
+            nerd_font_variant = "mono",
+            windows = {
+                autocomplete = {
+                    selection = "preselect",
+                },
+            },
         },
-        event = "InsertEnter",
-        config = function()
-            require("plugin.nvim-cmp")
-        end,
+        -- allows extending the enabled_providers array elsewhere in your config
+        -- without having to redefine it
+        opts_extend = {"sources.completion.enabled_providers"}
+    },
+    {
+        "neovim/nvim-lspconfig",
+        dependencies = {"saghen/blink.cmp"},
+        config = function(_, opts)
+            local lspconfig = require("lspconfig")
+            for server, config in pairs(opts.servers or {}) do
+                config.capabilities = require("blink.cmp").get_lsp_capabilities(config.capabilities)
+                lspconfig[server].setup(config)
+            end
+        end
     },
     {
         "ibhagwan/fzf-lua",
