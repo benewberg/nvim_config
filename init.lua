@@ -42,7 +42,7 @@ require("lazy").setup({
             nerd_font_variant = "mono",
             windows = {
                 autocomplete = {
-                    selection = "preselect",
+                    selection = "auto_insert",
                 },
             },
         },
