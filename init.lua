@@ -36,12 +36,12 @@ require("lazy").setup({
                 ["<S-Tab>"] = {"select_prev", "fallback"},
                 ["<CR>"] = {"select_and_accept", "fallback"},
             },
-            highlight = {
+            appearance = {
                 use_nvim_cmp_as_default = true,
+                nerd_font_variant = "mono",
             },
-            nerd_font_variant = "mono",
-            windows = {
-                autocomplete = {
+            completion = {
+                list = {
                     selection = "auto_insert",
                 },
             },
