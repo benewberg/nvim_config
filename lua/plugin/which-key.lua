@@ -45,7 +45,7 @@ wk.add({
 
     { "<leader>l", group = "lsp" },
     { "<leader>lc", "<cmd>lua vim.lsp.buf.code_action()<CR>", desc = "code actions" },
-    { "<leader>ld", "<cmd>lua require('fzf-lua').lsp_definitions({jump_to_single_result = true})<CR>", desc = "definition" },
+    { "<leader>ld", "<cmd>lua require('fzf-lua').lsp_definitions({jump1 = true})<CR>", desc = "definition" },
     { "<leader>lf", "<cmd>lua darker()<CR>", desc = "apply darker" },
     { "<leader>lh", "<cmd>lua vim.lsp.buf.hover()<CR>", desc = "hover" },
     { "<leader>ll", "<cmd>lua require('fzf-lua').lsp_document_diagnostics()<CR>", desc = "list diagnostics" },
