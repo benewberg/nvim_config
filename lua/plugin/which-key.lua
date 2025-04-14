@@ -61,7 +61,8 @@ wk.add({
     { "<leader>ot", "<cmd>lua require('FTerm').open()<CR>", desc = "terminal" },
 
     { "<leader>p", group = "pytest" },
-    { "<leader>pc", "<cmd>lua require('FTerm').scratch({cmd = {'pytest', '-sv', '--disable-pytest-warnings', '--cov', get_pytest_cov_cmd(), '--cov-branch', vim.fn.expand('%:p'), '--cov-report', 'term-missing'}, hl = 'Normal,FloatBorder:FzfLuaBorder'})<CR>", desc = "file coverage" },
+    { "<leader>pb", "<cmd>lua require('FTerm').scratch({cmd = {'pytest', '-sv', '--disable-pytest-warnings', '--cov', get_pytest_cov_cmd(), '--cov-branch', vim.fn.expand('%:p'), '--cov-report', 'term-missing'}, hl = 'Normal,FloatBorder:FzfLuaBorder'})<CR>", desc = "branch coverage" },
+    { "<leader>pc", "<cmd>lua require('FTerm').scratch({cmd = {'pytest', '-sv', '--disable-pytest-warnings', '--cov', get_pytest_cov_cmd(), vim.fn.expand('%:p'), '--cov-report', 'term-missing'}, hl = 'Normal,FloatBorder:FzfLuaBorder'})<CR>", desc = "file coverage" },
     { "<leader>pf", "<cmd>lua require('FTerm').scratch({cmd = {'nosetests', '-sv', '--nologcapture', '--with-id', vim.fn.expand('%:p')}, hl = 'Normal,FloatBorder:FzfLuaBorder'})<CR>", desc = "(nose) file" },
     { "<leader>pl", "<cmd>lua require('FTerm').scratch({cmd = {'pytest', '-sv', '--disable-pytest-warnings', get_last_test_name()}, hl = 'Normal,FloatBorder:FzfLuaBorder'})<CR>", desc = "last-run test" },
     { "<leader>pt", "<cmd>lua require('FTerm').scratch({cmd = {'pytest', '-sv', '--disable-pytest-warnings', '-m', 'this', vim.fn.expand('%:p')}, hl = 'Normal,FloatBorder:FzfLuaBorder'})<CR>", desc = "these" },
