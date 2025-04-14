@@ -17,6 +17,7 @@ wk.add({
     { "<leader>c", group = "change dir" },
     { "<leader>cc", ":cd %:p:h<CR>", desc = "change dir cwd" },
     { "<leader>cd", "<cmd>lua require('fzf-lua').fzf_exec([[(echo '..' ; echo '-' ; echo '~' ; find . -type d ! -path \"*.git*\" -follow 2>/dev/null)]], {prompt = 'Cd> ', previewer = false, actions = {['default'] = function(selected) vim.api.nvim_command('cd ' .. selected[1]) end}})<CR>", desc = "change dir" },
+    { "<leader>cp", ":cd /home/ben/projects/python/<CR>", desc = "python" },
         -- use if switch to fd over find:
         -- { "<leader>cd", "<cmd>lua require('fzf-lua').fzf_exec([[(echo '..' ; echo '-' ; echo '~' ; fd --type=d --follow --hidden --exclude=.git 2>/dev/null)]], {prompt = 'Cd> ', previewer = false, actions = {['default'] = function(selected) vim.api.nvim_command('cd ' .. selected[1]) end}})<CR>", desc = "change dir" },
 
