@@ -9,10 +9,11 @@ wk.add({
     { "<leader>/", "<cmd>lua require('fzf-lua').blines({start = 'cursor', fzf_cli_args = '--with-nth=3..'})<CR>", desc = "blines" },
     { "<leader>:", ":source ~/.local/share/nvim/sessions/init<CR>", desc = "open init" },
     { "<leader>?", "<cmd>lua require('fzf-lua').lines({fzf_cli_args = '--with-nth 2..'})<CR>", desc = "lines" },
-    { "<leader>f", "<cmd>lua require('fzf-lua').builtin()<CR>", desc = "fzf builtins" },
+    { "<leader>f", "<cmd>lua require('fzf-lua').treesitter({query = 'function '})<CR>", desc = "functions (treesitter)" },
     { "<leader>h", "<cmd>lua require('fzf-lua').help_tags()<CR>", desc = "help" },
     { "<leader>s", ":lua save_session()<CR>", desc = "save session" },
     { "<leader>w", ":w<CR>", desc = "save" },
+    { "<leader>z", "<cmd>lua require('fzf-lua').builtin()<CR>", desc = "fzf builtins" },
 
     { "<leader>c", group = "change dir" },
     { "<leader>cc", ":cd %:p:h<CR>", desc = "change dir cwd" },
