@@ -91,8 +91,8 @@ vim.api.nvim_create_autocmd('LspAttach', {
                 local kind = vim.lsp.protocol.CompletionItemKind[item.kind] or 'Unknown'
                 local kind_icon = kind_icons[kind]
                 local entry = {
-                    abbr = item.label,
-                    kind = kind_icon .. ' ' .. kind,
+                    abbr = kind_icon .. ' ' .. item.label,
+                    kind = kind,
                     menu = item.detail or '',
                     icase = 1,
                     dup = 0,
