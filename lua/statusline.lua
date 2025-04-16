@@ -38,7 +38,7 @@ function gitsigns_status(key)
 end
 
 function get_lsp_names()
-    local clients = vim.lsp.get_active_clients()
+    local clients = vim.lsp.get_clients()
     local lsps = {}
     for _, client in pairs(clients) do
         table.insert(lsps, client.name)
@@ -52,7 +52,7 @@ end
 
 function _get_current_function_name()
     local func_name = ""
-    local clients = vim.lsp.get_active_clients()
+    local clients = vim.lsp.get_clients()
     if next(clients) ~= nil then  -- effectively checks for an empty table in lua
         func_name = get_current_function_name()
         if func_name ~= nil and func_name ~= "" then
