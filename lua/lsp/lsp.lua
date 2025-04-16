@@ -56,14 +56,22 @@ local kind_icons = {
     TypeParameter = "",
     Unknown = "?",
 }
+
+local function keycode(keys)
+    return vim.api.nvim_replace_termcodes(keys, true, false, true)
+end
+
 local pumMaps = {
     ['<Tab>'] = '<C-n>',
     ['<S-Tab>'] = '<C-p>',
-    ['<CR>'] = '<C-y>',
 }
-for insertKMap, pumKmap in pairs(pumMaps) do
-    vim.keymap.set('i', insertKMap, function()
-        return vim.fn.pumvisible() == 1 and pumKmap or insertKMap
+for insertKmap, pumKmap in pairs(pumMaps) do
+    vim.keymap.set('i', insertKmap, function()
+        if vim.fn.pumvisible() == 1 then
+            vim.api.nvim_feedkeys(keycode(pumKmap), 'n', false)
+        else
+            vim.api.nvim_feedkeys(keycode(insertKmap), 'n', false)
+        end
     end, { expr = true })
 end
 vim.api.nvim_create_autocmd('LspAttach', {
