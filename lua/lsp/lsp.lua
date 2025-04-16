@@ -77,7 +77,7 @@ end
 vim.api.nvim_create_autocmd('LspAttach', {
     callback = function(args)
         local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
-        client.server_capabilities.completionProvider.triggerCharacters = vim.split("qwertyuiopasdfghjklzxcvbnm. ", "")
+        client.server_capabilities.completionProvider.triggerCharacters = vim.split("qwertyuiopasdfghjklzxcvbnm.", "")
         -- necessary to have the popup menu re-display if a backspace used
         vim.api.nvim_create_autocmd({ 'TextChangedI' }, {
             buffer = args.buf,
