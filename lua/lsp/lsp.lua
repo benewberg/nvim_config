@@ -26,16 +26,6 @@ vim.lsp.enable("pylsp")
 
 -- completion options
 vim.opt.completeopt = { 'menuone,noinsert,noselect,popup,fuzzy' }
-local pumMaps = {
-    ['<Tab>'] = '<C-n>',
-    ['<S-Tab>'] = '<C-p>',
-    ['<CR>'] = '<C-y>',
-}
-for insertMap, pumKmap in pairs(pumMaps) do
-    vim.keymap.set('i', insertMap, function()
-        return vim.fn.pumvisible() == 1 and pumKmap or insertKmap
-    end, { expr = true })
-end
 
 -- handle lsp autocompletion
 local kind_icons = {
@@ -66,10 +56,21 @@ local kind_icons = {
     TypeParameter = "",
     Unknown = "?",
 }
+local pumMaps = {
+    ['<Tab>'] = '<C-n>',
+    ['<S-Tab>'] = '<C-p>',
+    ['<CR>'] = '<C-y>',
+}
+for insertKMap, pumKmap in pairs(pumMaps) do
+    vim.keymap.set('i', insertKMap, function()
+        return vim.fn.pumvisible() == 1 and pumKmap or insertKMap
+    end, { expr = true })
+end
 vim.api.nvim_create_autocmd('LspAttach', {
     callback = function(args)
         local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
         client.server_capabilities.completionProvider.triggerCharacters = vim.split("qwertyuiopasdfghjklzxcvbnm. ", "")
+        -- necessary to have the popup menu re-display if a backspace used
         vim.api.nvim_create_autocmd({ 'TextChangedI' }, {
             buffer = args.buf,
             callback = function()
