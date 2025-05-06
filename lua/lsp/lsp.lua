@@ -75,6 +75,18 @@ for insertKmap, pumKmap in pairs(pumMaps) do
         end
     end, { expr = true })
 end
+
+local function is_whitespace()
+    local col = vim.fn.col('.') - 1
+    local line = vim.fn.getline('.')
+    local char_under_cursor = string.sub(line, col, col)
+    ret_val = false
+    if col == 0 or string.match(char_under_cursor, '%s') then
+        ret_val = true
+    end
+    return ret_val
+end
+
 vim.api.nvim_create_autocmd('LspAttach', {
     callback = function(args)
         local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
@@ -83,7 +95,9 @@ vim.api.nvim_create_autocmd('LspAttach', {
         vim.api.nvim_create_autocmd({ 'TextChangedI' }, {
             buffer = args.buf,
             callback = function()
-                vim.lsp.completion.get()
+                if not is_whitespace() then
+                    vim.lsp.completion.get()
+                end
             end
         })
         vim.lsp.completion.enable(true, client.id, args.buf, {
