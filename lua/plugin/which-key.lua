@@ -22,8 +22,8 @@ wk.add({
         -- { "<leader>cd", "<cmd>lua require('fzf-lua').fzf_exec([[(echo '..' ; echo '-' ; echo '~' ; fd --type=d --follow --hidden --exclude=.git 2>/dev/null)]], {prompt = 'Cd> ', previewer = false, actions = {['default'] = function(selected) vim.api.nvim_command('cd ' .. selected[1]) end}})<CR>", desc = "change dir" },
 
     { "<leader>f", group = "fzf find" },
-    { "<leader>fc", "<cmd>lua require('fzf-lua').treesitter({query = 'type '})<CR>", desc = "classes (treesitter)" },
-    { "<leader>ff", "<cmd>lua require('fzf-lua').treesitter({query = 'function '})<CR>", desc = "functions (treesitter)" },
+    { "<leader>fc", "<cmd>lua require('fzf-lua').treesitter({query = '[type] '})<CR>", desc = "classes (treesitter)" },
+    { "<leader>ff", "<cmd>lua require('fzf-lua').treesitter({query = '[function] '})<CR>", desc = "functions (treesitter)" },
 
     { "<leader>g", group = "git" },
     { "<leader>ga", "<cmd>lua require('FTerm').scratch({cmd = {'git', 'add', '-i'}, hl = 'Normal,FloatBorder:FzfLuaBorder', border = 'rounded'})<CR>", desc = "stage interactively" },
