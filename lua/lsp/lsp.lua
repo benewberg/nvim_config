@@ -26,7 +26,7 @@ vim.lsp.enable("pylsp")
 
 -- completion options
 vim.opt.completeopt = { 'menuone,noinsert,noselect,popup,fuzzy' }
-vim.opt.pumheight = 10
+vim.opt.pumheight = 20
 
 -- handle lsp autocompletion
 local kind_icons = {
