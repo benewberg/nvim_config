@@ -6,6 +6,8 @@
 -- python lsp server
 vim.lsp.config["pylsp"] = {
     cmd = { vim.env.HOME .. '/.virtualenvs/nvim/bin/pylsp' },
+    -- root_dir = lsp.util.root_pattern('.git', vim.fn.getcwd()),  -- start LSP server at project root or cwd
+    -- root_markers = { ".git" },
     filetypes = { "python" },
     settings = {
         pylsp = {
