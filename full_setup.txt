@@ -1,8 +1,8 @@
-installing and running neovim (v0.11.2) from absolute scratch (--verbose version)
+installing and running neovim (v0.11.4) from absolute scratch (--verbose version)
 
-1. install neovim (v0.11.2):
+1. install neovim (v0.11.4):
     a. `mkdir -p ~/apps/neovim && cd ~/apps/neovim`
-    b. `wget -O nvim.appimage https://github.com/neovim/neovim/releases/download/v0.11.2/nvim-linux-x86_64.appimage`
+    b. `wget -O nvim.appimage https://github.com/neovim/neovim/releases/download/v0.11.4/nvim-linux-x86_64.appimage`
     c. `chmod u+x nvim.appimage`
 2. install a virtual environment (if it already exists, delete it and start fresh):
     a. `mkdir ~/.virtualenvs && cd ~/.virtualenvs`
@@ -11,8 +11,8 @@ installing and running neovim (v0.11.2) from absolute scratch (--verbose version
     a. `cd ~/.virtualenvs/nvim`
     b. `source bin/activate`
     c. `./pip install pynvim`  # https://github.com/neovim/pynvim
-    d. `./pip install python-lsp-server`  # https://github.com/python-lsp/python-lsp-server
-    e. `./pip install python-lsp-ruff`  # https://github.com/python-lsp/python-lsp-ruff
+    d. `./pip install pyrefly`  # https://github.com/facebook/pyrefly (or to upgrade: `pip install --upgrade pyrefly==N.NN`)
+    e. `./pip install ruff`
     f. `./pip install darker`  # https://github.com/akaihola/darker
     g. `./pip install darker[isort]`  # https://github.com/PyCQA/isort
     h. `deactivate`
