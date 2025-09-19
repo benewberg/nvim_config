@@ -28,99 +28,99 @@ vim.lsp.enable("pylsp")
 
 -- completion options
 vim.opt.completeopt = { 'menuone,noinsert,noselect,popup,fuzzy' }
-vim.opt.pumheight = 20
+-- vim.opt.pumheight = 20
 
 -- handle lsp autocompletion
-local kind_icons = {
-    Text = "",
-    Method = "",
-    Function = "󰊕",
-    Constructor = "",
-    Field = "󰜢",
-    Variable = "𝒙",
-    Class = "",
-    Interface = "󰆧",
-    Module = "",
-    Property = "",
-    Unit = "",
-    Value = "",
-    Enum = "",
-    Keyword = "󰌋",
-    Snippet = "󰘍",
-    Color = "",
-    File = "",
-    Reference = "󰌹",
-    Folder = "",
-    EnumMember = "",
-    Constant = "",
-    Struct = "",
-    Event = "",
-    Operator = "",
-    TypeParameter = "",
-    Unknown = "?",
-}
-
-local function keycode(keys)
-    return vim.api.nvim_replace_termcodes(keys, true, false, true)
-end
-
-local pumMaps = {
-    ['<Tab>'] = '<C-n>',
-    ['<S-Tab>'] = '<C-p>',
-}
-for insertKmap, pumKmap in pairs(pumMaps) do
-    vim.keymap.set('i', insertKmap, function()
-        if vim.fn.pumvisible() == 1 then
-            vim.api.nvim_feedkeys(keycode(pumKmap), 'n', false)
-        else
-            vim.api.nvim_feedkeys(keycode(insertKmap), 'n', false)
-        end
-    end, { expr = true })
-end
-
-local function is_whitespace()
-    local col = vim.fn.col('.') - 1
-    local line = vim.fn.getline('.')
-    local char_under_cursor = string.sub(line, col, col)
-    ret_val = false
-    if col == 0 or string.match(char_under_cursor, '%s') then
-        ret_val = true
-    end
-    return ret_val
-end
-
-vim.api.nvim_create_autocmd('LspAttach', {
-    callback = function(args)
-        local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
-        client.server_capabilities.completionProvider.triggerCharacters = vim.split("qwertyuiopasdfghjklzxcvbnm.", "")
-        -- necessary to have the popup menu re-display if a backspace used
-        vim.api.nvim_create_autocmd({ 'TextChangedI' }, {
-            buffer = args.buf,
-            callback = function()
-                if not is_whitespace() then
-                    vim.lsp.completion.get()
-                end
-            end
-        })
-        vim.lsp.completion.enable(true, client.id, args.buf, {
-            autotrigger = true,
-            convert = function(item)
-                local kind = vim.lsp.protocol.CompletionItemKind[item.kind] or 'Unknown'
-                local kind_icon = kind_icons[kind]
-                local entry = {
-                    abbr = kind_icon .. ' ' .. item.label,
-                    kind = kind,
-                    menu = item.detail or '',
-                    icase = 1,
-                    dup = 0,
-                    empty = 0,
-                }
-                return entry
-            end,
-        })
-    end
-})
-
+-- local kind_icons = {
+--     Text = "",
+--     Method = "",
+--     Function = "󰊕",
+--     Constructor = "",
+--     Field = "󰜢",
+--     Variable = "𝒙",
+--     Class = "",
+--     Interface = "󰆧",
+--     Module = "",
+--     Property = "",
+--     Unit = "",
+--     Value = "",
+--     Enum = "",
+--     Keyword = "󰌋",
+--     Snippet = "󰘍",
+--     Color = "",
+--     File = "",
+--     Reference = "󰌹",
+--     Folder = "",
+--     EnumMember = "",
+--     Constant = "",
+--     Struct = "",
+--     Event = "",
+--     Operator = "",
+--     TypeParameter = "",
+--     Unknown = "?",
+-- }
+--
+-- local function keycode(keys)
+--     return vim.api.nvim_replace_termcodes(keys, true, false, true)
+-- end
+--
+-- local pumMaps = {
+--     ['<Tab>'] = '<C-n>',
+--     ['<S-Tab>'] = '<C-p>',
+-- }
+-- for insertKmap, pumKmap in pairs(pumMaps) do
+--     vim.keymap.set('i', insertKmap, function()
+--         if vim.fn.pumvisible() == 1 then
+--             vim.api.nvim_feedkeys(keycode(pumKmap), 'n', false)
+--         else
+--             vim.api.nvim_feedkeys(keycode(insertKmap), 'n', false)
+--         end
+--     end, { expr = true })
+-- end
+--
+-- local function is_whitespace()
+--     local col = vim.fn.col('.') - 1
+--     local line = vim.fn.getline('.')
+--     local char_under_cursor = string.sub(line, col, col)
+--     ret_val = false
+--     if col == 0 or string.match(char_under_cursor, '%s') then
+--         ret_val = true
+--     end
+--     return ret_val
+-- end
+--
+-- vim.api.nvim_create_autocmd('LspAttach', {
+--     callback = function(args)
+--         local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
+--         client.server_capabilities.completionProvider.triggerCharacters = vim.split("qwertyuiopasdfghjklzxcvbnm.", "")
+--         -- necessary to have the popup menu re-display if a backspace used
+--         vim.api.nvim_create_autocmd({ 'TextChangedI' }, {
+--             buffer = args.buf,
+--             callback = function()
+--                 if not is_whitespace() then
+--                     vim.lsp.completion.get()
+--                 end
+--             end
+--         })
+--         vim.lsp.completion.enable(true, client.id, args.buf, {
+--             autotrigger = true,
+--             convert = function(item)
+--                 local kind = vim.lsp.protocol.CompletionItemKind[item.kind] or 'Unknown'
+--                 local kind_icon = kind_icons[kind]
+--                 local entry = {
+--                     abbr = kind_icon .. ' ' .. item.label,
+--                     kind = kind,
+--                     menu = item.detail or '',
+--                     icase = 1,
+--                     dup = 0,
+--                     empty = 0,
+--                 }
+--                 return entry
+--             end,
+--         })
+--     end
+-- })
+--
 -- turn off diagnostics by default
 vim.diagnostic.config({
     virtual_text = false,
