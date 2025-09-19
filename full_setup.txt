@@ -1,8 +1,8 @@
-installing and running neovim (v0.11.0) from absolute scratch (--verbose version)
+installing and running neovim (v0.11.2) from absolute scratch (--verbose version)
 
-1. install neovim (v0.11.0):
+1. install neovim (v0.11.2):
     a. `mkdir -p ~/apps/neovim && cd ~/apps/neovim`
-    b. `wget -O nvim.appimage https://github.com/neovim/neovim/releases/download/v0.11.0/nvim-linux-x86_64.appimage`
+    b. `wget -O nvim.appimage https://github.com/neovim/neovim/releases/download/v0.11.2/nvim-linux-x86_64.appimage`
     c. `chmod u+x nvim.appimage`
 2. install a virtual environment (if it already exists, delete it and start fresh):
     a. `mkdir ~/.virtualenvs && cd ~/.virtualenvs`
@@ -38,7 +38,8 @@ installing and running neovim (v0.11.0) from absolute scratch (--verbose version
     ```
     d. `chmod u+x $HOME/.local/bin/nvim`
     e. make sure `$HOME~/.local/bin` is in your path (it should be)
-7. launch neovim now: `nvim` (there will likely be many errors -- ignore for now) and then run `:PlugInstall` and wait for it to complete
+7. launch neovim now
+    a. Lazy package manager will download and install the plugins. wait for it to complete
 8. exit nvim and re-launch it
 9. for treesitter stuff, run `:TSInstall python lua comment vim vimdoc c sql query` (and any other languages you want)
 
@@ -57,6 +58,9 @@ troubleshooting:
     a. `sudo apt-get install ripgrep`
 
 * in neovim, run `:checkhealth` to check for any other issues
+
+* if treesitter is reporting issues in `:checkhealth`:
+    a. run `:TSInstall python lua comment vim vimdoc c sql query` (and any other languages you want)
 
 optional:
 * add nvim as the default editor in git:
