@@ -13,7 +13,7 @@ installing and running neovim (v0.11.2) from absolute scratch (--verbose version
     c. `./pip install pynvim`  # https://github.com/neovim/pynvim
     d. `./pip install python-lsp-server`  # https://github.com/python-lsp/python-lsp-server
     e. `./pip install python-lsp-ruff`  # https://github.com/python-lsp/python-lsp-ruff
-    f. `./pip install --upgrade darker`  # https://github.com/akaihola/darker
+    f. `./pip install darker`  # https://github.com/akaihola/darker
     g. `./pip install darker[isort]`  # https://github.com/PyCQA/isort
     h. `deactivate`
 4. for an init configuration template to get you started:
@@ -24,7 +24,7 @@ installing and running neovim (v0.11.2) from absolute scratch (--verbose version
     b. `ln -sf $HOME/dotfiles/nvim/init.lua $HOME/.config/nvim/init.lua`
     c. `ln -sf $HOME/dotfiles/nvim/lua $HOME/.config/nvim/lua`
 6. make a new script which will launch this version of neovim:
-    a. `mkdir $HOME/.local/bin`
+    a. `mkdir -p $HOME/.local/bin`
     b. `vi $HOME/.local/bin/nvim`
     c. add the below into the file (ignore the back-ticks) and save
     ```
