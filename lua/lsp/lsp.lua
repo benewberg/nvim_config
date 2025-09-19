@@ -41,27 +41,14 @@ vim.opt.pumheight = 20
 vim.lsp.config["pyrefly"] = {
     cmd = { vim.env.HOME .. '/.virtualenvs/nvim/bin/pyrefly', 'lsp' },
     -- root_dir = vim.lsp.util.root_pattern('.git', vim.fn.getcwd()),  -- start LSP server at project root or cwd
-    -- root_markers = { ".git" },
+    root_markers = { ".git" },
     filetypes = { "python" },
-    -- settings = {
-    --     pylsp = {
-    --         plugins = {
-    --             ruff = {
-    --                 enabled = true,
-    --                 executable = vim.env.HOME .. '/.virtualenvs/nvim/bin/ruff',
-    --                 ignore = {"E501"},  -- ignore line length error
-    --                 extendSelect = {"W291", "W293"},  -- whitespace warnings
-    --                 -- TODO add to extendSelect when available: E1120, ...
-    --                 -- see astral-sh / ruff / issues / 970
-    --             },
-    --         },
-    --     },
-    -- },
+    settings = {},
     on_attach = function(client, bufnr)
         local chars = {}; for i = 32, 126 do table.insert(chars, string.char(i)) end
         client.server_capabilities.completionProvider.triggerCharacters = chars
-        client.server_capabilities.semanticTokensProvider = false  -- seems to mess with treesitter highlighting at the moment
-        client.server_capabilities.diagnosticProvider = false  -- seems to mess with treesitter highlighting at the moment
+        client.server_capabilities.semanticTokensProvider = false  -- disable this as it seems to mess with treesitter highlighting at the moment
+        client.server_capabilities.diagnosticProvider = false  -- disable this as it seems to mess with treesitter highlighting at the moment
         client.capabilities.textDocument.publishDiagnostics = false  -- will use ruff for this
         vim.lsp.completion.enable(true, client.id, bufnr, {
             autotrigger = true,
@@ -87,12 +74,16 @@ vim.lsp.enable("pyrefly")
 vim.lsp.config["ruff"] = {
     cmd = { vim.env.HOME .. '/.virtualenvs/nvim/bin/ruff', 'server' },
     filetypes = { "python" },
-    -- settings = {
-    --     ignore = {"E501"},  -- ignore line length error
-    --     extendSelect = {"W291", "W293"},  -- whitespace warnings
-    --     -- TODO add to extendSelect when available: E1120, ...
-    --     -- see astral-sh / ruff / issues / 970
-    -- },
+    init_options = {
+        settings = {
+            lint = {
+                ignore = {"E501"},  -- ignore line length error
+                extendSelect = {"W291", "W293"},  -- whitespace warnings
+                -- TODO add to extendSelect when available: E1120, ...
+                -- see astral-sh / ruff / issues / 970
+            },
+        },
+    },
     on_attach = function(client, bufnr)
         client.server_capabilities.hoverProvider = false
     end,
