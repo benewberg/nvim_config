@@ -1,12 +1,46 @@
+local kind_icons = {
+    Text = "",
+    Method = "",
+    Function = "󰊕",
+    Constructor = "",
+    Field = "󰜢",
+    Variable = "𝒙",
+    Class = "",
+    Interface = "󰆧",
+    Module = "",
+    Property = "",
+    Unit = "",
+    Value = "",
+    Enum = "",
+    Keyword = "󰌋",
+    Snippet = "󰘍",
+    Color = "",
+    File = "",
+    Reference = "󰌹",
+    Folder = "",
+    EnumMember = "",
+    Constant = "",
+    Struct = "",
+    Event = "",
+    Operator = "",
+    TypeParameter = "",
+    Unknown = "?",
+}
+
+-- completion options
+vim.opt.completeopt = { 'menuone,noselect,popup' }
+vim.opt.pumheight = 20
+
 -- local lsp = require 'lspconfig'
 -- lsp.pylsp.setup {
 --     root_dir = lsp.util.root_pattern('.git', vim.fn.getcwd()),  -- start LSP server at project root or cwd
 --     cmd = {vim.env.HOME .. '/.virtualenvs/nvim/bin/pylsp'},
 -- }
+
 -- python lsp server
 vim.lsp.config["pylsp"] = {
     cmd = { vim.env.HOME .. '/.virtualenvs/nvim/bin/pylsp' },
-    -- root_dir = lsp.util.root_pattern('.git', vim.fn.getcwd()),  -- start LSP server at project root or cwd
+    -- root_dir = vim.lsp.util.root_pattern('.git', vim.fn.getcwd()),  -- start LSP server at project root or cwd
     -- root_markers = { ".git" },
     filetypes = { "python" },
     settings = {
@@ -23,61 +57,48 @@ vim.lsp.config["pylsp"] = {
             },
         },
     },
+    on_attach = function(client, bufnr)
+        local chars = {}; for i = 32, 126 do table.insert(chars, string.char(i)) end
+        client.server_capabilities.completionProvider.triggerCharacters = chars
+        client.server_capabilities.completionProvider.triggerCharacters = vim.split("qwertyuiopasdfghjklzxcvbnm.", "")
+        vim.lsp.completion.enable(true, client.id, bufnr, {
+            autotrigger = true,
+            convert = function(item)
+                local kind = vim.lsp.protocol.CompletionItemKind[item.kind] or 'Unknown'
+                local kind_icon = kind_icons[kind]
+                local entry = {
+                    abbr = kind_icon .. ' ' .. item.label,
+                    kind = kind,
+                    menu = item.detail or '',
+                    icase = 1,
+                    dup = 0,
+                    empty = 0,
+                }
+                return entry
+            end,
+        })
+    end,
 }
 vim.lsp.enable("pylsp")
 
--- completion options
-vim.opt.completeopt = { 'menuone,noinsert,noselect,popup,fuzzy' }
--- vim.opt.pumheight = 20
+local function keycode(keys)
+    return vim.api.nvim_replace_termcodes(keys, true, false, true)
+end
 
--- handle lsp autocompletion
--- local kind_icons = {
---     Text = "",
---     Method = "",
---     Function = "󰊕",
---     Constructor = "",
---     Field = "󰜢",
---     Variable = "𝒙",
---     Class = "",
---     Interface = "󰆧",
---     Module = "",
---     Property = "",
---     Unit = "",
---     Value = "",
---     Enum = "",
---     Keyword = "󰌋",
---     Snippet = "󰘍",
---     Color = "",
---     File = "",
---     Reference = "󰌹",
---     Folder = "",
---     EnumMember = "",
---     Constant = "",
---     Struct = "",
---     Event = "",
---     Operator = "",
---     TypeParameter = "",
---     Unknown = "?",
--- }
---
--- local function keycode(keys)
---     return vim.api.nvim_replace_termcodes(keys, true, false, true)
--- end
---
--- local pumMaps = {
---     ['<Tab>'] = '<C-n>',
---     ['<S-Tab>'] = '<C-p>',
--- }
--- for insertKmap, pumKmap in pairs(pumMaps) do
---     vim.keymap.set('i', insertKmap, function()
---         if vim.fn.pumvisible() == 1 then
---             vim.api.nvim_feedkeys(keycode(pumKmap), 'n', false)
---         else
---             vim.api.nvim_feedkeys(keycode(insertKmap), 'n', false)
---         end
---     end, { expr = true })
--- end
---
+local pumMaps = {
+    ['<Tab>'] = '<C-n>',
+    ['<S-Tab>'] = '<C-p>',
+}
+for insertKmap, pumKmap in pairs(pumMaps) do
+    vim.keymap.set('i', insertKmap, function()
+        if vim.fn.pumvisible() == 1 then
+            vim.api.nvim_feedkeys(keycode(pumKmap), 'n', false)
+        else
+            vim.api.nvim_feedkeys(keycode(insertKmap), 'n', false)
+        end
+    end, { expr = true })
+end
+
 -- local function is_whitespace()
 --     local col = vim.fn.col('.') - 1
 --     local line = vim.fn.getline('.')

@@ -22,48 +22,48 @@ require("lazy").setup({
             require("plugin.treesitter")
         end,
     },
-    {
-        "saghen/blink.cmp",
-        lazy = false,
-        version = "v0.*",
-
-        ---@module 'blink.cmp'
-        ---@type blink.cmp.Config
-        opts = {
-            keymap = {
-                preset = "default",
-                ["<Tab>"] = {"select_next", "fallback"},
-                ["<S-Tab>"] = {"select_prev", "fallback"},
-                ["<CR>"] = {"accept", "fallback"},
-            },
-            appearance = {
-                use_nvim_cmp_as_default = true,
-                nerd_font_variant = "mono",
-            },
-            completion = {
-                list = {
-                    selection = {
-                        preselect = false,
-                        auto_insert = true,
-                    },
-                },
-            },
-        },
-        -- allows extending the enabled_providers array elsewhere in your config
-        -- without having to redefine it
-        opts_extend = {"sources.completion.enabled_providers"}
-    },
-    {
-        "neovim/nvim-lspconfig",
-        dependencies = {"saghen/blink.cmp"},
-        config = function(_, opts)
-            local lspconfig = require("lspconfig")
-            for server, config in pairs(opts.servers or {}) do
-                config.capabilities = require("blink.cmp").get_lsp_capabilities(config.capabilities)
-                lspconfig[server].setup(config)
-            end
-        end
-    },
+    -- {
+    --     "saghen/blink.cmp",
+    --     lazy = false,
+    --     version = "v0.*",
+    --
+    --     ---@module 'blink.cmp'
+    --     ---@type blink.cmp.Config
+    --     opts = {
+    --         keymap = {
+    --             preset = "default",
+    --             ["<Tab>"] = {"select_next", "fallback"},
+    --             ["<S-Tab>"] = {"select_prev", "fallback"},
+    --             ["<CR>"] = {"accept", "fallback"},
+    --         },
+    --         appearance = {
+    --             use_nvim_cmp_as_default = true,
+    --             nerd_font_variant = "mono",
+    --         },
+    --         completion = {
+    --             list = {
+    --                 selection = {
+    --                     preselect = false,
+    --                     auto_insert = true,
+    --                 },
+    --             },
+    --         },
+    --     },
+    --     -- allows extending the enabled_providers array elsewhere in your config
+    --     -- without having to redefine it
+    --     opts_extend = {"sources.completion.enabled_providers"}
+    -- },
+    -- {
+    --     "neovim/nvim-lspconfig",
+    --     dependencies = {"saghen/blink.cmp"},
+    --     config = function(_, opts)
+    --         local lspconfig = require("lspconfig")
+    --         for server, config in pairs(opts.servers or {}) do
+    --             config.capabilities = require("blink.cmp").get_lsp_capabilities(config.capabilities)
+    --             lspconfig[server].setup(config)
+    --         end
+    --     end
+    -- },
     {
         "ibhagwan/fzf-lua",
         config = function()
