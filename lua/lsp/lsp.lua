@@ -37,30 +37,32 @@ vim.opt.pumheight = 20
 --     cmd = {vim.env.HOME .. '/.virtualenvs/nvim/bin/pylsp'},
 -- }
 
--- python lsp server
-vim.lsp.config["pylsp"] = {
-    cmd = { vim.env.HOME .. '/.virtualenvs/nvim/bin/pylsp' },
+-- pyrefly lsp server
+vim.lsp.config["pyrefly"] = {
+    cmd = { vim.env.HOME .. '/.virtualenvs/nvim/bin/pyrefly', 'lsp' },
     -- root_dir = vim.lsp.util.root_pattern('.git', vim.fn.getcwd()),  -- start LSP server at project root or cwd
     -- root_markers = { ".git" },
     filetypes = { "python" },
-    settings = {
-        pylsp = {
-            plugins = {
-                ruff = {
-                    enabled = true,
-                    executable = vim.env.HOME .. '/.virtualenvs/nvim/bin/ruff',
-                    ignore = {"E501"},  -- ignore line length error
-                    extendSelect = {"W291", "W293"},  -- whitespace warnings
-                    -- TODO add to extendSelect when available: E1120, ...
-                    -- see astral-sh / ruff / issues / 970
-                },
-            },
-        },
-    },
+    -- settings = {
+    --     pylsp = {
+    --         plugins = {
+    --             ruff = {
+    --                 enabled = true,
+    --                 executable = vim.env.HOME .. '/.virtualenvs/nvim/bin/ruff',
+    --                 ignore = {"E501"},  -- ignore line length error
+    --                 extendSelect = {"W291", "W293"},  -- whitespace warnings
+    --                 -- TODO add to extendSelect when available: E1120, ...
+    --                 -- see astral-sh / ruff / issues / 970
+    --             },
+    --         },
+    --     },
+    -- },
     on_attach = function(client, bufnr)
         local chars = {}; for i = 32, 126 do table.insert(chars, string.char(i)) end
         client.server_capabilities.completionProvider.triggerCharacters = chars
-        client.server_capabilities.completionProvider.triggerCharacters = vim.split("qwertyuiopasdfghjklzxcvbnm.", "")
+        client.server_capabilities.semanticTokensProvider = false  -- seems to mess with treesitter highlighting at the moment
+        client.server_capabilities.diagnosticProvider = false  -- seems to mess with treesitter highlighting at the moment
+        client.capabilities.textDocument.publishDiagnostics = false  -- will use ruff for this
         vim.lsp.completion.enable(true, client.id, bufnr, {
             autotrigger = true,
             convert = function(item)
@@ -79,7 +81,23 @@ vim.lsp.config["pylsp"] = {
         })
     end,
 }
-vim.lsp.enable("pylsp")
+vim.lsp.enable("pyrefly")
+
+-- ruff lsp server
+vim.lsp.config["ruff"] = {
+    cmd = { vim.env.HOME .. '/.virtualenvs/nvim/bin/ruff', 'server' },
+    filetypes = { "python" },
+    -- settings = {
+    --     ignore = {"E501"},  -- ignore line length error
+    --     extendSelect = {"W291", "W293"},  -- whitespace warnings
+    --     -- TODO add to extendSelect when available: E1120, ...
+    --     -- see astral-sh / ruff / issues / 970
+    -- },
+    on_attach = function(client, bufnr)
+        client.server_capabilities.hoverProvider = false
+    end,
+}
+vim.lsp.enable("ruff")
 
 local function keycode(keys)
     return vim.api.nvim_replace_termcodes(keys, true, false, true)
