@@ -31,15 +31,9 @@ local kind_icons = {
 vim.opt.completeopt = { 'menuone,noselect,popup' }
 vim.opt.pumheight = 20
 
--- local lsp = require 'lspconfig'
--- lsp.pylsp.setup {
---     root_dir = lsp.util.root_pattern('.git', vim.fn.getcwd()),  -- start LSP server at project root or cwd
---     cmd = {vim.env.HOME .. '/.virtualenvs/nvim/bin/pylsp'},
--- }
-
--- pyrefly lsp server
-vim.lsp.config["pyrefly"] = {
-    cmd = { vim.env.HOME .. '/.virtualenvs/nvim/bin/pyrefly', 'lsp' },
+-- zuban lsp server
+vim.lsp.config["zuban"] = {
+    cmd = { vim.env.HOME .. '/.virtualenvs/nvim/bin/zuban', 'server' },
     -- root_dir = vim.lsp.util.root_pattern('.git', vim.fn.getcwd()),  -- start LSP server at project root or cwd
     root_markers = { ".git" },
     filetypes = { "python" },
@@ -48,9 +42,8 @@ vim.lsp.config["pyrefly"] = {
         local chars = {}; for i = 32, 126 do table.insert(chars, string.char(i)) end
         client.server_capabilities.completionProvider.triggerCharacters = chars
         client.server_capabilities.semanticTokensProvider = false  -- disable this as it seems to mess with treesitter highlighting at the moment
-        client.server_capabilities.diagnosticProvider = false  -- disable this as it seems to mess with treesitter highlighting at the moment
-        client.server_capabilities.publishDiagnostics = false  -- will use ruff for this
-        client.capabilities.textDocument.publishDiagnostics = false  -- will use ruff for this
+        client.server_capabilities.diagnosticProvider = false  -- will use ruff for this
+        -- client.capabilities.textDocument.publishDiagnostics = false  -- will use ruff for this
         vim.lsp.completion.enable(true, client.id, bufnr, {
             autotrigger = true,
             convert = function(item)
@@ -70,7 +63,7 @@ vim.lsp.config["pyrefly"] = {
         })
     end,
 }
-vim.lsp.enable("pyrefly")
+vim.lsp.enable("zuban")
 
 -- ruff lsp server
 vim.lsp.config["ruff"] = {
