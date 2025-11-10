@@ -74,13 +74,6 @@ require("lazy").setup({
         config = true,
     },
     {
-        "echasnovski/mini.map",
-        version = false,
-        config = function()
-            require("plugin.mini_map")
-        end,
-    },
-    {
         "folke/which-key.nvim",
         event = "VeryLazy",
         config = function()

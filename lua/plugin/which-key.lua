@@ -81,7 +81,6 @@ wk.add({
     { "<leader>t", group = "toggles" },
     { "<leader>td", "<cmd>lua toggle_diagnostics()<CR>", desc = "diagnostics" },
     { "<leader>ti", ":IBLToggle<CR>", desc = "indents" },
-    { "<leader>tm", "<cmd>lua require('mini.map').toggle()<CR>", desc = "mini map" },
     { "<leader>tw", "<cmd>lua toggle_text_wrap()<CR>", desc = "text wrap" },
 
     {
