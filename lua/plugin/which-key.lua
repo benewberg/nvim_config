@@ -75,7 +75,7 @@ wk.add({
 
     { "<leader>r", group = "ripgrep" },
     { "<leader>rg", "<cmd>lua require('fzf-lua').live_grep({git_icons = false})<CR>", desc = "rg" },
-    { "<leader>rl", "<cmd>lua require('fzf-lua').grep_last()<CR>", desc = "rg last" },
+    { "<leader>rl", "<cmd>lua require('fzf-lua').grep({resume=true})<CR>", desc = "rg last" },
     { "<leader>rr", "<cmd>lua require('fzf-lua').grep_cword({multiline = 2})<CR>", desc = "rg word under cursor" },
 
     { "<leader>t", group = "toggles" },
