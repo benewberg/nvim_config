@@ -49,6 +49,7 @@ vim.lsp.config["pyrefly"] = {
         client.server_capabilities.completionProvider.triggerCharacters = chars
         client.server_capabilities.semanticTokensProvider = false  -- disable this as it seems to mess with treesitter highlighting at the moment
         client.server_capabilities.diagnosticProvider = false  -- disable this as it seems to mess with treesitter highlighting at the moment
+        client.server_capabilities.publishDiagnostics = false  -- will use ruff for this
         client.capabilities.textDocument.publishDiagnostics = false  -- will use ruff for this
         vim.lsp.completion.enable(true, client.id, bufnr, {
             autotrigger = true,
