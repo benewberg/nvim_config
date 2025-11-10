@@ -50,18 +50,25 @@ function get_lsp_names()
     return lsp_names
 end
 
+function _get_current_class_name()
+    local class_name = ""
+    local clients = vim.lsp.get_clients()
+    if next(clients) ~= nil then  -- effectively checks for an empty talbe in lua
+        class_name = get_current_class_name()
+        if class_name ~= "" then
+            class_name = "  " .. class_name .. " "
+        end
+    end
+    return class_name
+end
+
 function _get_current_function_name()
     local func_name = ""
     local clients = vim.lsp.get_clients()
     if next(clients) ~= nil then  -- effectively checks for an empty table in lua
         func_name = get_current_function_name()
         if func_name ~= nil and func_name ~= "" then
-            func_name = " 󰊕  "  .. func_name .. " "
-        elseif func_name ~= nil and func_name == "" then
-            func_name = get_current_class_name()
-            if func_name ~= "" then
-                func_name = "  " .. func_name .. " "
-            end
+            func_name = "  󰊕 "  .. func_name .. " "
         end
     end
     return func_name
@@ -99,7 +106,7 @@ function win_bar()
         if vim.bo.modified then
             file_modified = '%#WinBarModified#%*'
         end
-        value = value .. file_icon .. file_name .. ' ' .. file_modified .. ' %-{luaeval("get_readonly_char()")}%#NonText#% %#CurSearch#%-{luaeval("_get_current_function_name()")}%#NonText#%'
+        value = value .. file_icon .. file_name .. ' ' .. file_modified .. ' %-{luaeval("get_readonly_char()")}%#NonText#% %#InsertMode#%-{luaeval("_get_current_class_name()")}%#CurSearch#%-{luaeval("_get_current_function_name()")}%#NonText#%'
     end
     return value
 end
