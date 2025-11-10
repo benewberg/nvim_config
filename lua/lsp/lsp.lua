@@ -28,7 +28,7 @@ local kind_icons = {
 }
 
 -- completion options
-vim.opt.completeopt = { 'menuone,noselect,popup,fuzzy' }
+vim.opt.completeopt = { 'menuone,noselect,popup' }
 vim.opt.pumheight = 20
 
 -- local lsp = require 'lspconfig'
