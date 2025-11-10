@@ -12,6 +12,23 @@ installing and running neovim (v0.11.4) from absolute scratch (--verbose version
     b. `source bin/activate`
     c. `./pip install pynvim`  # https://github.com/neovim/pynvim
     d. `./pip install pyrefly`  # https://github.com/facebook/pyrefly (or to upgrade: `pip install --upgrade pyrefly==N.NN`)
+        i. `pyrefly init`  ## TIP: you might do this at the top level of a project / git
+        ii. a new pyrefly.toml file will be created in the previous step. add the following to the bottom of the file:
+        ```
+
+        [errors]
+        bad-argument-type = false
+        bad-assignment = false
+        bad-override = false
+        implicitly-defined-attribute = false
+        index-error = false
+        missing-attribute = false
+        no-matching-overload = false
+        not-iterable = false
+        unbound-name = false
+        unknown-name = false
+        unsupported-operation = false
+        ```
     e. `./pip install ruff`
     f. `./pip install darker`  # https://github.com/akaihola/darker
     g. `./pip install darker[isort]`  # https://github.com/PyCQA/isort
