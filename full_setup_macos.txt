@@ -1,0 +1,97 @@
+installing and running neovim from absolute scratch (--verbose version)
+
+1. install neovim:
+    a. `mkdir -p ~/apps/neovim && cd ~/apps/neovim`
+    b. `curl -O https://github.com/neovim/neovim/releases/download/nightly/nvim-macos-arm64.tar.gz`
+    c. `xattr -c ./nvim-macos-arm64.tar.gz`
+    d. `tar xzvf nvim-macos-arm64.tar.gz`
+2. install a virtual environment (if it already exists, delete it and start fresh):
+    a. `mkdir ~/.virtualenvs && cd ~/.virtualenvs`
+    b. `python3 -m venv nvim`
+3. install the necessary python packages in the virtual environment for nvim and python lsp purposes:
+    a. `cd ~/.virtualenvs/nvim`
+    b. `source bin/activate`
+    c. `./pip install pynvim`  # https://github.com/neovim/pynvim
+    d. `./pip install zuban`   # https://github.com/zubanls/zuban (or to upgrade: `pip install zuban --upgrade`)
+    e. `./pip install ruff`
+    f. `./pip install darker`  # https://github.com/akaihola/darker
+    g. `./pip install darker[isort]`  # https://github.com/PyCQA/isort
+    h. `deactivate`
+4. for an init configuration template to get you started:
+    a. `mkdir ~/dotfiles/ && cd ~/dotfiles`
+    b. `git clone https://github.com/benewberg/nvim_config.git nvim`
+5. add symlinks from the dotfiles dir to the neovim config dir:
+    a. `mkdir -p $HOME/.config/nvim`
+    b. `ln -sf $HOME/dotfiles/nvim/init.lua $HOME/.config/nvim/init.lua`
+    c. `ln -sf $HOME/dotfiles/nvim/lua $HOME/.config/nvim/lua`
+6. make a new script which will launch this version of neovim:
+    a. `mkdir -p $HOME/.local/bin`
+    b. `vi $HOME/.local/bin/nvim`
+    c. add the below into the file (ignore the back-ticks) and save
+    ```
+    #!/bin/zsh
+
+    if [ ! "$#" -gt 0 ] ; then
+        ~/apps/neovim/nvim-macos-arm64/bin/nvim
+    else
+        ~/apps/neovim/nvim-macos-arm64/bin/nvim "$@"
+    fi
+    ```
+    d. `chmod u+x $HOME/.local/bin/nvim`
+    e. make sure `$HOME~/.local/bin` is in your path (it should be, but if not:)
+        i. add this to your ~/.zshrc: `path+=('/Users/ben/.local/bin')`
+7. launch neovim now
+    a. Lazy package manager will download and install the plugins. wait for it to complete
+8. exit nvim and re-launch it
+9. for treesitter stuff, run `:TSInstall python lua comment vim vimdoc c sql query` (and any other languages you want)
+
+troubleshooting:
+* if you need to install homebrew
+    a. `/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"`
+    b. follow the prompts
+
+* if fzf is not installed:
+    a. `git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf`
+    b. `~/.fzf/install`
+    c. enter `y` or enter at the 3 prompts to enable fuzzy auto-complete, key bindings, and update shell config
+    d. source your .zshrc: `. ~/.zshrc`
+
+* if ripgrep is not installed:
+    a. `brew install ripgrep`
+
+* in neovim, run `:checkhealth` to check for any other issues
+
+* if treesitter is reporting issues in `:checkhealth`:
+    a. run `:TSInstall python lua comment vim vimdoc c sql query` (and any other languages you want)
+
+optional:
+* add nvim as the default editor in git:
+    a. `git config --global core.editor nvim`
+
+* add nvim as the default editor in psql:
+    a. add this line to your .bashrc: `export PSQL_EDITOR=nvim`
+    b. source your .bashrc: `. ~/.bashrc`
+
+* add the nerdfont-patched intel one mono font: `https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/IntelOneMono`
+
+optional rust tools:
+* install cargo: `sudo apt-get install cargo`
+
+* eza (modern, maintained replacement for `ls` -- https://github.com/eza-community/eza):
+    a. `cargo install eza`
+    b. add the following lines to your .bashrc and source it:
+    ```
+        alias ll='eza --long --icons'
+        alias lll='eza --long --tree --icons'
+    ```
+
+* fd (simple, fast and user-friendly alternative to `find` -- https://github.com/sharkdp/fd):
+    a. `cargo install fd-find`
+
+* install ctags and generate a tabs file:
+    a. `sudo apt-get install ctags`
+    b. ensure Exuberant Ctags is what we just installed: `ctags --version`
+    c. generate the tags file: `ctags -R --languages=python -f ~/.config/nvim/tags /HIGHEST_GIT_LEVEL_PATH/.`
+    d. in nvim, add this to your init somewhere: `vim.opt.tags = vim.env.HOME .. '/.config/nvim/tags'`
+    e. if you have fzf-lua plugin installed, then from neovim: `:FzfLua tags` or `:FzfLua tags_live_grep`
+
