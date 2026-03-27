@@ -18,7 +18,7 @@ installing and running neovim (v0.11.4) from absolute scratch (--verbose version
     h. `deactivate`
 4. for an init configuration template to get you started:
     a. `mkdir ~/dotfiles/ && cd ~/dotfiles`
-    b. `git clone https://github.com/benewberg/nightly_nvim_init.git nvim`
+    b. `git clone https://github.com/benewberg/nvim_config.git nvim`
 5. add symlinks from the dotfiles dir to the neovim config dir:
     a. `mkdir -p $HOME/.config/nvim`
     b. `ln -sf $HOME/dotfiles/nvim/init.lua $HOME/.config/nvim/init.lua`
