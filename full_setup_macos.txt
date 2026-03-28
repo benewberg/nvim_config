@@ -2,7 +2,7 @@ installing and running neovim from absolute scratch (--verbose version)
 
 1. install neovim:
     a. `mkdir -p ~/apps/neovim && cd ~/apps/neovim`
-    b. `curl -O https://github.com/neovim/neovim/releases/download/nightly/nvim-macos-arm64.tar.gz`
+    b. `curl -OL https://github.com/neovim/neovim/releases/download/nightly/nvim-macos-arm64.tar.gz`
     c. `xattr -c ./nvim-macos-arm64.tar.gz`
     d. `tar xzvf nvim-macos-arm64.tar.gz`
 2. install a virtual environment (if it already exists, delete it and start fresh):
@@ -63,6 +63,8 @@ troubleshooting:
 
 * if treesitter is reporting issues in `:checkhealth`:
     a. run `:TSInstall python lua comment vim vimdoc c sql query` (and any other languages you want)
+    -or-
+    b. delete all of the directories (if they exist) at this path and try (a) again: `~/.local/share/nvim/site/treesitter` (the actual treesitter directory might be named slightly differently)
 
 optional:
 * add nvim as the default editor in git:
@@ -72,7 +74,8 @@ optional:
     a. add this line to your .bashrc: `export PSQL_EDITOR=nvim`
     b. source your .bashrc: `. ~/.bashrc`
 
-* add the nerdfont-patched intel one mono font: `https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/IntelOneMono`
+* add the nerdfont-patched intel one mono font: `font-intone-mono-nerd-font`
+* add the nerdfont-patched hack font: `brew install font-hack-nerd-font`
 
 optional rust tools:
 * install cargo: `sudo apt-get install cargo`
