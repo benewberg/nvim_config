@@ -2,7 +2,7 @@ installing and running neovim from absolute scratch (--verbose version)
 
 1. install neovim:
     a. `mkdir -p ~/apps/neovim && cd ~/apps/neovim`
-    b. `curl -OL https://github.com/neovim/neovim/releases/download/nightly/nvim-macos-arm64.tar.gz`
+    b. `curl -OL https://github.com/neovim/neovim/releases/download/v0.12.0/nvim-macos-arm64.tar.gz`
     c. `xattr -c ./nvim-macos-arm64.tar.gz`
     d. `tar xzvf nvim-macos-arm64.tar.gz`
 2. install a virtual environment (if it already exists, delete it and start fresh):
@@ -41,10 +41,10 @@ installing and running neovim from absolute scratch (--verbose version)
     d. `chmod u+x $HOME/.local/bin/nvim`
     e. make sure `$HOME~/.local/bin` is in your path (it should be, but if not:)
         i. add this to your ~/.zshrc: `path+=('/Users/ben/.local/bin')`
-7. launch neovim now
+7. install the tree-sitter-cli: `brew install tree-sitter-cli`
+8. launch neovim now
     a. Lazy package manager will download and install the plugins. wait for it to complete
-8. exit nvim and re-launch it
-9. for treesitter stuff, run `:TSInstall python lua comment vim vimdoc c sql query` (and any other languages you want)
+    b. if treesitter doesn't automatically install the parsers: `:TSInstall <language>`
 
 troubleshooting:
 * if you need to install homebrew
@@ -63,9 +63,11 @@ troubleshooting:
 * in neovim, run `:checkhealth` to check for any other issues
 
 * if treesitter is reporting issues in `:checkhealth`:
-    a. run `:TSInstall python lua comment vim vimdoc c sql query` (and any other languages you want)
+    a. completely remove the nvim-treesitter plugin: `rm -rf $HOME/.local/share/nvim/lazy/nvim-treesitter`
+    b. delete all of the directories (if they exist) at this path: `rm -rf $HOME/.local/share/nvim/site/treesitter` (the actual treesitter directory might be named slightly differently)
+    c. launch nvim, wait for lazy to re-install nvim-treesitter, and run `:TSInstall python lua comment vim vimdoc c sql query` (and any other languages you want)
     -or-
-    b. delete all of the directories (if they exist) at this path and try (a) again: `~/.local/share/nvim/site/treesitter` (the actual treesitter directory might be named slightly differently)
+    d. run `:TSUpdate <language>` in nvim
 
 optional:
 * add nvim as the default editor in git:
