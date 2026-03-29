@@ -1,90 +1,37 @@
 vim.g.python3_host_prog = vim.env.HOME .. "/.virtualenvs/nvim/bin/python3"
 vim.g.mapleader = " "
 
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not (vim.uv or vim.loop).fs_stat(lazypath) then
-  vim.fn.system({
-    "git",
-    "clone",
-    "--filter=blob:none",
-    "https://github.com/folke/lazy.nvim.git",
-    "--branch=stable", -- latest stable release
-    lazypath,
-  })
-end
-vim.opt.rtp:prepend(lazypath)
-
-require("lazy").setup({
-    "neovim/nvim-lspconfig",
-    {
-        "nvim-treesitter/nvim-treesitter",
-        lazy = false,
-        build = ":TSUpdate",
-        lazy = false,
-        config = function()
-            require("plugin.treesitter")
-        end,
-    },
-    {
-        "ibhagwan/fzf-lua",
-        config = function()
-            require("plugin.fzf-lua")
-        end,
-    },
-    {
-        "Shatur/neovim-ayu",
-        lazy = false,
-        priority = 1000,
-        config = function()
-            require("plugin.ayu")
-        end,
-    },
-    {
-        "lewis6991/gitsigns.nvim",
-        config = function()
-            require("plugin.gitsigns")
-        end,
-    },
-    {
-        "lukas-reineke/indent-blankline.nvim",
-        main = "ibl",
-        config = function()
-            require("plugin.indent_blankline")
-        end,
-    },
-    {
-        "kylechui/nvim-surround",
-        config = true,
-    },
-    {
-        url = "https://codeberg.org/andyg/leap.nvim",
-        event = "VeryLazy",
-        config = function()
-            require("plugin.leap")
-        end,
-    },
-    {
-        "numToStr/FTerm.nvim",
-        event = "VeryLazy",
-        config = function()
-            require("plugin.fterm")
-        end,
-    },
-    {
-        "windwp/nvim-autopairs",
-        event = "InsertEnter",
-        config = true,
-    },
-    {
-        "folke/which-key.nvim",
-        event = "VeryLazy",
-        config = function()
-            require("plugin.which-key")
-        end,
-    },
+-- define the plugins (will install if missing)
+vim.pack.add({
+    { src = "https://github.com/neovim/nvim-lspconfig" },
+    { src = "https://github.com/nvim-treesitter/nvim-treesitter" },
+    { src = "https://github.com/ibhagwan/fzf-lua" },
+    { src = "https://github.com/Shatur/neovim-ayu" },
+    { src = "https://github.com/lewis6991/gitsigns.nvim" },
+    { src = "https://github.com/lukas-reineke/indent-blankline.nvim", name = "ibl" },
+    { src = "https://github.com/kylechui/nvim-surround" },
+    { src = "https://github.com/numToStr/FTerm.nvim" },
+    { src = "https://github.com/windwp/nvim-autopairs" },
+    { src = "https://github.com/folke/which-key.nvim" },
 })
 
--- load modules ------------------------------------------------------------------------------------
+-- define any non-github plugins by name after cloning them into the packpath manually
+-- ex: mkdir -p $HOME/.local/share/nvim/site/pack/ext/opt
+--     git clone https://codeberg.org/<maintainer/<plugin> $HOME/.local/share/nvim/site/pack/ext/opt/<plugin>
+vim.cmd.packadd("leap.nvim")
+
+-- activate / start plugins
+require("plugin.treesitter")
+require("plugin.fzf-lua")
+require("plugin.ayu")
+require("plugin.gitsigns")
+require("plugin.indent_blankline")
+require("plugin.fterm")
+require("nvim-autopairs").setup()
+require("plugin.which-key")
+require("plugin.leap")
+
+-- load other modules
 require "lsp"
 require "settings"
 require "autocmds"

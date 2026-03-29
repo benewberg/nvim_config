@@ -97,3 +97,12 @@ optional rust tools:
     d. in nvim, add this to your init somewhere: `vim.opt.tags = vim.env.HOME .. '/.config/nvim/tags'`
     e. if you have fzf-lua plugin installed, then from neovim: `:FzfLua tags` or `:FzfLua tags_live_grep`
 
+* how i migrated from lazy to vim.pack after nvim v0.12.0 was released
+    a. `rm -rf $HOME/.local/share/nvim/site/lazy`  # remove all lazy plugins manually
+    b. `rm -rf $HOME/.local/share/nvim/site/parser $HOME/.local/share/nvim/site/parser-info $HOME/.local/share/nvim/site/queries`  # remove any treesitter assets
+    c. made all relevant updates to init.lua
+    d. launch nvim and allow vim.pack to install everything
+    e. one plugin (leap.nvim) was hosted by codeberg, not github, so i had to do the following:
+         i. `mkdir -p $HOME/.local/share/nvim/site/pack/ext/opt`
+        ii. `git clone https://codeberg.org/<maintainer/<plugin> $HOME/.local/share/nvim/site/pack/ext/opt/<plugin>`
+    f. re-launch nvim and install the treesitter parsers using `:TSInstall <language>`
