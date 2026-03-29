@@ -24,6 +24,7 @@ installing and running neovim from absolute scratch (--verbose version)
     a. `mkdir -p $HOME/.config/nvim`
     b. `ln -sf $HOME/dotfiles/nvim/init.lua $HOME/.config/nvim/init.lua`
     c. `ln -sf $HOME/dotfiles/nvim/lua $HOME/.config/nvim/lua`
+    d. `ln -sf $HOME/dotfiles/nvim/ftplugin $HOME/.config/nvim/ftplugin`
 6. make a new script which will launch this version of neovim:
     a. `mkdir -p $HOME/.local/bin`
     b. `vi $HOME/.local/bin/nvim`

@@ -1,5 +1,8 @@
-local ts = require 'nvim-treesitter.configs'
-ts.setup {ensure_installed = 'python', highlight = {enable = true}, indent = {enable = true}}
+require('nvim-treesitter.config').setup({
+    ensure_installed = { "python", "comment", "query" },
+    highlight = { enable = true },
+    indent = { enable = true },
+})
 
 function get_current_function_name()
     if vim.bo.filetype ~= "python" then return "" end
