@@ -1,6 +1,8 @@
-My config files for neovim (0.8+).
+### my config files for neovim (v0.12+)
 
-Current self-imposed goals:
-  1. Use as few plugins as possible
-  2. Utilize FZF heavily
-  3. Roll my own status line/winbar
+**current self-imposed goals:**
+- use as few plugins as possible
+    - use builtin `lspconfig` and `autocomplete`
+    - use builtin `vim.pack` package manager
+- utilize `fzf` as the picker
+- roll my own status line/winbar
