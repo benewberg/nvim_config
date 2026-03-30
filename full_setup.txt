@@ -39,12 +39,14 @@ installing and running neovim (v0.12.0) from absolute scratch (--verbose version
     ```
     d. `chmod u+x $HOME/.local/bin/nvim`
     e. make sure `$HOME~/.local/bin` is in your path (it should be)
-7. install the tree-sitter-cli:
+7. install the tree-sitter-cli (now required by nvim-treesitter):
+    a. `sudo apt install tree-sitter-cli`
+    -or-  # if the package manager doesn't have v0.26.1 as required:
     a. `wget -O $HOME/.local/bin/tree-sitter-cli-linux-x64.zip https://github.com/tree-sitter/tree-sitter/releases/download/v0.26.7/tree-sitter-cli-linux-x64.zip`
     b. `unzip $HOME/.local/bin/tree-sitter-cli-linux-x64.zip -d $HOME/.local/bin/.`
     c. `rm $HOME/.local/bin/tree-sitter-cli-linux-x64.zip`
 8. launch neovim now
-    a. Lazy package manager will download and install the plugins. wait for it to complete
+    a. vim.pack will download and install the plugins. wait for it to complete
     b. if treesitter doesn't automatically install the parsers: `:TSInstall <language>`
 
 troubleshooting:
@@ -64,7 +66,9 @@ troubleshooting:
 * in neovim, run `:checkhealth` to check for any other issues
 
 * if treesitter is reporting issues in `:checkhealth`:
-    a. run `:TSInstall python lua comment vim vimdoc c sql query` (and any other languages you want)
+    a. completely remove the nvim-treesitter plugin: `rm -rf $HOME/.local/share/nvim/site/pack/core/opt/nvim-treesitter`
+    b. delete all of the directories (if they exist) at this path: `rm -rf $HOME/.local/share/nvim/site/parser $HOME/.local/share/nvim/site/parser-info $HOME/.local/share/nvim/site/queries`
+    c. launch nvim, wait for vim.pack to re-install nvim-treesitter, and run `:TSInstall python lua comment vim vimdoc c sql query` (and any other languages you want)
 
 optional:
 * add nvim as the default editor in git:
@@ -90,6 +94,7 @@ optional rust tools:
 * fd (simple, fast and user-friendly alternative to `find` -- https://github.com/sharkdp/fd):
     a. `cargo install fd-find`
 
+misc how-to:
 * install ctags and generate a tabs file:
     a. `sudo apt-get install ctags`
     b. ensure Exuberant Ctags is what we just installed: `ctags --version`
@@ -100,8 +105,8 @@ optional rust tools:
 * how i migrated from lazy to vim.pack after nvim v0.12.0 was released
     a. `rm -rf $HOME/.local/share/nvim/lazy`  # remove all lazy plugins manually
     b. `rm -rf $HOME/.local/share/nvim/site/parser $HOME/.local/share/nvim/site/parser-info $HOME/.local/share/nvim/site/queries`  # remove any treesitter assets
-    c. made all relevant updates to init.lua
-    d. launch nvim and allow vim.pack to install everything
+    c. made all relevant updates to init.lua; removing lazy setup commands and moved everything into vim.pack.add()
+    d. launch nvim and allow vim.pack to install everything; external (non-github) plugins will fail
     e. one plugin (leap.nvim) was hosted by codeberg, not github, so i had to do the following:
          i. `mkdir -p $HOME/.local/share/nvim/site/pack/ext/opt`
         ii. `git clone https://codeberg.org/<maintainer/<plugin> $HOME/.local/share/nvim/site/pack/ext/opt/<plugin>`

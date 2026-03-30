@@ -41,9 +41,9 @@ installing and running neovim from absolute scratch (--verbose version)
     d. `chmod u+x $HOME/.local/bin/nvim`
     e. make sure `$HOME~/.local/bin` is in your path (it should be, but if not:)
         i. add this to your ~/.zshrc: `path+=('/Users/ben/.local/bin')`
-7. install the tree-sitter-cli: `brew install tree-sitter-cli`
+7. install the tree-sitter-cli (now required by nvim-treesitter): `brew install tree-sitter-cli`
 8. launch neovim now
-    a. Lazy package manager will download and install the plugins. wait for it to complete
+    a. vim.pack will download and install the plugins. wait for it to complete
     b. if treesitter doesn't automatically install the parsers: `:TSInstall <language>`
 
 troubleshooting:
@@ -63,39 +63,38 @@ troubleshooting:
 * in neovim, run `:checkhealth` to check for any other issues
 
 * if treesitter is reporting issues in `:checkhealth`:
-    a. completely remove the nvim-treesitter plugin: `rm -rf $HOME/.local/share/nvim/lazy/nvim-treesitter`
-    b. delete all of the directories (if they exist) at this path: `rm -rf $HOME/.local/share/nvim/site/treesitter` (the actual treesitter directory might be named slightly differently)
-    c. launch nvim, wait for lazy to re-install nvim-treesitter, and run `:TSInstall python lua comment vim vimdoc c sql query` (and any other languages you want)
-    -or-
-    d. run `:TSUpdate <language>` in nvim
+    a. completely remove the nvim-treesitter plugin: `rm -rf $HOME/.local/share/nvim/site/pack/core/opt/nvim-treesitter`
+    b. delete all of the directories (if they exist) at this path: `rm -rf $HOME/.local/share/nvim/site/parser $HOME/.local/share/nvim/site/parser-info $HOME/.local/share/nvim/site/queries`
+    c. launch nvim, wait for vim.pack to re-install nvim-treesitter, and run `:TSInstall python lua comment vim vimdoc c sql query` (and any other languages you want)
 
 optional:
 * add nvim as the default editor in git:
     a. `git config --global core.editor nvim`
 
 * add nvim as the default editor in psql:
-    a. add this line to your .bashrc: `export PSQL_EDITOR=nvim`
-    b. source your .bashrc: `. ~/.bashrc`
+    a. add this line to your .zshrc: `export PSQL_EDITOR=nvim`
+    b. source your .zshrc: `. ~/.zshrc`
 
 * add the nerdfont-patched intel one mono font: `font-intone-mono-nerd-font`
 * add the nerdfont-patched hack font: `brew install font-hack-nerd-font`
 
 optional rust tools:
-* install cargo: `sudo apt-get install cargo`
+* install cargo: `brew install rust`
 
 * eza (modern, maintained replacement for `ls` -- https://github.com/eza-community/eza):
-    a. `cargo install eza`
-    b. add the following lines to your .bashrc and source it:
+    a. `brew install eza`
+    b. add the following lines to your .zshrc and source it:
     ```
         alias ll='eza --long --icons'
         alias lll='eza --long --tree --icons'
     ```
 
 * fd (simple, fast and user-friendly alternative to `find` -- https://github.com/sharkdp/fd):
-    a. `cargo install fd-find`
+    a. `brew install fd`
 
+misc how-to:
 * install ctags and generate a tabs file:
-    a. `sudo apt-get install ctags`
+    a. `brew install ctags`
     b. ensure Exuberant Ctags is what we just installed: `ctags --version`
     c. generate the tags file: `ctags -R --languages=python -f ~/.config/nvim/tags /HIGHEST_GIT_LEVEL_PATH/.`
     d. in nvim, add this to your init somewhere: `vim.opt.tags = vim.env.HOME .. '/.config/nvim/tags'`
@@ -104,8 +103,8 @@ optional rust tools:
 * how i migrated from lazy to vim.pack after nvim v0.12.0 was released
     a. `rm -rf $HOME/.local/share/nvim/lazy`  # remove all lazy plugins manually
     b. `rm -rf $HOME/.local/share/nvim/site/parser $HOME/.local/share/nvim/site/parser-info $HOME/.local/share/nvim/site/queries`  # remove any treesitter assets
-    c. made all relevant updates to init.lua
-    d. launch nvim and allow vim.pack to install everything
+    c. made all relevant updates to init.lua; removing lazy setup commands and moved everything into vim.pack.add()
+    d. launch nvim and allow vim.pack to install everything; external (non-github) plugins will fail
     e. one plugin (leap.nvim) was hosted by codeberg, not github, so i had to do the following:
          i. `mkdir -p $HOME/.local/share/nvim/site/pack/ext/opt`
         ii. `git clone https://codeberg.org/<maintainer/<plugin> $HOME/.local/share/nvim/site/pack/ext/opt/<plugin>`
