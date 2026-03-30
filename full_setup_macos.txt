@@ -102,7 +102,7 @@ optional rust tools:
     e. if you have fzf-lua plugin installed, then from neovim: `:FzfLua tags` or `:FzfLua tags_live_grep`
 
 * how i migrated from lazy to vim.pack after nvim v0.12.0 was released
-    a. `rm -rf $HOME/.local/share/nvim/site/lazy`  # remove all lazy plugins manually
+    a. `rm -rf $HOME/.local/share/nvim/lazy`  # remove all lazy plugins manually
     b. `rm -rf $HOME/.local/share/nvim/site/parser $HOME/.local/share/nvim/site/parser-info $HOME/.local/share/nvim/site/queries`  # remove any treesitter assets
     c. made all relevant updates to init.lua
     d. launch nvim and allow vim.pack to install everything
