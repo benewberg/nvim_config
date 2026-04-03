@@ -9,8 +9,6 @@ require('gitsigns').setup({
         changedelete = {text = '┃'},
     },
     current_line_blame_formatter = '<abbrev_sha> <summary> <author> <author_time:%Y-%m-%d>',
-    -- _signs_staged_enable = true,
-    signs_staged_enable = false,  -- still way too buggy even though it's on by default
     numhl = true,
     preview_config = {
         border = 'rounded',
