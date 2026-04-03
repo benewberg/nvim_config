@@ -31,6 +31,9 @@ require("nvim-autopairs").setup()
 require("plugin.which-key")
 require("plugin.leap")
 
+-- activate other builtin plugins
+vim.cmd.packadd("nvim.undotree")
+
 -- load other modules
 require "lsp"
 require "settings"
