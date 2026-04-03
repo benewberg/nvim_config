@@ -33,6 +33,7 @@ require("plugin.leap")
 
 -- activate other builtin plugins
 vim.cmd.packadd("nvim.undotree")
+vim.cmd.packadd("nohlsearch")
 
 -- load other modules
 require "lsp"
