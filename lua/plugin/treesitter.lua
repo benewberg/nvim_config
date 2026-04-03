@@ -1,5 +1,5 @@
 require('nvim-treesitter.config').setup({
-    ensure_installed = { "python", "comment", "query" },
+    ensure_installed = { "python", "comment", "query", "lua" },
     highlight = { enable = true },
     indent = { enable = true },
 })
