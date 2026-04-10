@@ -79,6 +79,7 @@ wk.add({
 
     { "<leader>t", group = "toggles" },
     { "<leader>td", "<cmd>lua toggle_diagnostics()<CR>", desc = "diagnostics" },
+    { "<leader>tf", "<cmd>lua require('FTerm').toggle()<CR>", desc = "floating window" },
     { "<leader>ti", ":IBLToggle<CR>", desc = "indents" },
     { "<leader>tu", "<cmd>lua require('undotree').open({command = math.floor(vim.api.nvim_win_get_width(0) / 3) .. 'vnew'})<CR>", desc = "undotree" },
     { "<leader>tw", "<cmd>lua toggle_text_wrap()<CR>", desc = "text wrap" },
