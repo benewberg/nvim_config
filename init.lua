@@ -13,12 +13,13 @@ vim.pack.add({
     { src = "https://github.com/numToStr/FTerm.nvim" },
     { src = "https://github.com/windwp/nvim-autopairs" },
     { src = "https://github.com/folke/which-key.nvim" },
+    { src = "https://github.com/yorickpeterse/nvim-jump", name = "jump" },
 })
 
 -- define any non-github plugins by name after cloning them into the packpath manually
 -- ex: mkdir -p $HOME/.local/share/nvim/site/pack/ext/opt
 --     git clone https://codeberg.org/<maintainer/<plugin> $HOME/.local/share/nvim/site/pack/ext/opt/<plugin>
-vim.cmd.packadd("leap.nvim")
+--     then, activate it here using `vim.cmd.packadd("<plugin>")
 
 -- activate / start plugins
 require("plugin.treesitter")
@@ -29,7 +30,7 @@ require("plugin.indent_blankline")
 require("plugin.fterm")
 require("nvim-autopairs").setup()
 require("plugin.which-key")
-require("plugin.leap")
+require("plugin.jump")
 
 -- activate other builtin plugins
 vim.cmd.packadd("nvim.undotree")
