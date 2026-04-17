@@ -15,3 +15,4 @@ vim.opt.number = true
 vim.opt.wrap = false
 vim.opt.tags = vim.env.HOME .. '/.config/nvim/tags'
 vim.opt.winborder = "rounded"
+vim.opt.autocomplete = true  -- we will turn this off for specific filetype buffers in ftplugin/
