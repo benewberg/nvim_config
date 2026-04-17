@@ -77,10 +77,10 @@
 
 - in neovim, run `:checkhealth` to check for any other issues
 
-- if treesitter is reporting issues in `:checkhealth`:
-    a. completely remove the nvim-treesitter plugin: `rm -rf $HOME/.local/share/nvim/site/pack/core/opt/nvim-treesitter`
-    b. delete all of the directories (if they exist) at this path: `rm -rf $HOME/.local/share/nvim/site/parser $HOME/.local/share/nvim/site/parser-info $HOME/.local/share/nvim/site/queries`
-    c. launch nvim, wait for vim.pack to re-install nvim-treesitter, and run `:TSInstall <language[,s]>`
+- if treesitter is reporting issues in `:checkhealth`:  
+    a. completely remove the nvim-treesitter plugin: `rm -rf $HOME/.local/share/nvim/site/pack/core/opt/nvim-treesitter`  
+    b. delete all of the directories (if they exist) at this path: `rm -rf $HOME/.local/share/nvim/site/parser $HOME/.local/share/nvim/site/parser-info $HOME/.local/share/nvim/site/queries`  
+    c. launch nvim, wait for vim.pack to re-install nvim-treesitter, and run `:TSInstall <language[,s]>`  
 
 ## optional:
 - add nvim as the default editor in git: `git config --global core.editor nvim`
@@ -106,21 +106,21 @@
 - fd (simple, fast and user-friendly alternative to `find` -- https://github.com/sharkdp/fd): `brew install fd`
 
 ## misc how-to:
-- install ctags and generate a tabs file:
-    a. `brew install ctags`
-    b. ensure Exuberant Ctags is what we just installed: `ctags --version`
-    c. generate the tags file: `ctags -R --languages=python -f ~/.config/nvim/tags /HIGHEST_GIT_LEVEL_PATH/.`
-    d. in nvim, add this to your init somewhere: `vim.opt.tags = vim.env.HOME .. '/.config/nvim/tags'`
-    e. if you have fzf-lua plugin installed, then from neovim: `:FzfLua tags` or `:FzfLua tags_live_grep`
+- install ctags and generate a tabs file:  
+    a. `brew install ctags`  
+    b. ensure Exuberant Ctags is what we just installed: `ctags --version`  
+    c. generate the tags file: `ctags -R --languages=python -f ~/.config/nvim/tags /HIGHEST_GIT_LEVEL_PATH/.`  
+    d. in nvim, add this to your init somewhere: `vim.opt.tags = vim.env.HOME .. '/.config/nvim/tags'`  
+    e. if you have fzf-lua plugin installed, then from neovim: `:FzfLua tags` or `:FzfLua tags_live_grep`  
 
-- how i migrated from lazy to vim.pack after nvim v0.12.0 was released
-    a. `rm -rf $HOME/.local/share/nvim/lazy`  # remove all lazy plugins manually
-    b. `rm -rf $HOME/.local/share/nvim/site/parser $HOME/.local/share/nvim/site/parser-info $HOME/.local/share/nvim/site/queries`  # remove any treesitter assets
-    c. made all relevant updates to init.lua; removing lazy setup commands and moved everything into vim.pack.add()
-    d. launch nvim and allow vim.pack to install everything; external (non-github) plugins will fail
-    e. one plugin (leap.nvim) was hosted by codeberg, not github, so i had to do the following:
+- how i migrated from lazy to vim.pack after nvim v0.12.0 was released  
+    a. `rm -rf $HOME/.local/share/nvim/lazy`  # remove all lazy plugins manually  
+    b. `rm -rf $HOME/.local/share/nvim/site/parser $HOME/.local/share/nvim/site/parser-info $HOME/.local/share/nvim/site/queries`  # remove any treesitter assets  
+    c. made all relevant updates to init.lua; removing lazy setup commands and moved everything into vim.pack.add()  
+    d. launch nvim and allow vim.pack to install everything; external (non-github) plugins will fail  
+    e. one plugin (leap.nvim) was hosted by codeberg, not github, so i had to do the following:  
     ```bash
     mkdir -p $HOME/.local/share/nvim/site/pack/ext/opt
     git clone https://codeberg.org/<maintainer/<plugin> $HOME/.local/share/nvim/site/pack/ext/opt/<plugin>
     ```
-    f. re-launch nvim and install the treesitter parsers using `:TSInstall <language[,s]>`
+    f. re-launch nvim and install the treesitter parsers using `:TSInstall <language[,s]>`  
