@@ -68,6 +68,7 @@ vim.lsp.enable("zuban")
 -- ruff lsp server
 vim.lsp.config["ruff"] = {
     cmd = { vim.env.HOME .. '/.virtualenvs/nvim/bin/ruff', 'server' },
+    root_markers = { ".git" },
     filetypes = { "python" },
     init_options = {
         settings = {
