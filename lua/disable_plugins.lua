@@ -1,4 +1,4 @@
-local disabled_builtins = {'gzip', 'zip', 'tar', '2html_plugin', 'spellfile_plugin', 'matchit', 'man'}
+local disabled_builtins = {'gzip', 'zip', 'tar', '2html_plugin', 'spellfile_plugin', 'matchit', 'man', 'matchparen', 'rplugin'}
 for _, plugin in pairs(disabled_builtins) do
     vim.g["loaded_" .. plugin] = 1
 end
