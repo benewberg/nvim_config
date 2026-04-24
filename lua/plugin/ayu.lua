@@ -16,7 +16,6 @@ require('ayu').setup({
         OtherMode = {fg = colors.constant, bg = colors.bg, reverse = true, bold = true},
         GitSignsChangeDelete = {fg = colors.constant},
         ['@variable.builtin'] = {fg = colors.constant, italic = true},
-        LeapBackdrop = {fg = colors.comment},
     }
 })
 require('ayu').colorscheme()
