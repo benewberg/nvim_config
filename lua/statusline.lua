@@ -1,12 +1,16 @@
 function get_mode_color(mode)
     local mode_color = '%#OtherMode#'
     local mode_color_table = {
-        n = '%#NormalMode#',
-        i = '%#InsertMode#',
-        R = '%#ReplaceMode#',
-        v = '%#VisualMode#',
-        V = '%#VisualMode#',
+        ['c'] = '%#CommandMode#',
+        ['n'] = '%#NormalMode#',
+        ['i'] = '%#InsertMode#',
+        ['R'] = '%#ReplaceMode#',
+        ['v'] = '%#VisualMode#',
+        ['vs'] = '%#VisualMode#',
+        ['V'] = '%#VisualMode#',
+        ['VS'] = '%#VisualMode#',
         [''] = '%#VisualMode#',
+        ['s'] = '%#VisualMode#',
     }
     if mode_color_table[mode] then
         mode_color = mode_color_table[mode]
